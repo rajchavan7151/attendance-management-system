@@ -208,11 +208,25 @@ const getStudentAttendanceSummary = async (req, res, next) => {
     let studentId = req.params.studentId;
 
     if (req.user.role === 'student') {
-      if (!req.user.studentProfile) {
-        return res.status(404).json({ success: false, message: 'Student profile not linked to user' });
-      }
-      studentId = req.user.studentProfile._id;
-    }
+  if (!req.user.studentProfile) {
+    return res.status(404).json({
+      success: false,
+      message: 'Student profile not linked to user'
+    });
+  }
+
+  const loggedInStudentId =
+    req.user.studentProfile._id.toString();
+
+  if (studentId !== loggedInStudentId) {
+    return res.status(403).json({
+      success: false,
+      message: 'Access denied. You can only view your own attendance.'
+    });
+  }
+
+  studentId = loggedInStudentId;
+}
 
     const student = await Student.findById(studentId).populate('class', 'name code department semester');
     if (!student) {

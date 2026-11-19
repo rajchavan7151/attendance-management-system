@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/attendance_db';
-    console.log(`Connecting to MongoDB at: ${mongoUri}`);
+   const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/attendance_db';
+console.log('Connecting to MongoDB...');
 
     await mongoose.connect(mongoUri, {
       serverSelectionTimeoutMS: 5000,

@@ -1,0 +1,7 @@
+Task	Command
+Start project	docker compose up -d
+Stop project	docker compose stop
+Restart stopped project	docker compose start
+Check running containers	docker compose ps
+Apply code changes	docker compose up -d --build
+View errors	docker compose logs --tail=50
